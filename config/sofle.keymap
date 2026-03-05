@@ -105,15 +105,4 @@
         };
 
     };
-    encoders {
-        compatible = "zmk,behavior-encoders";
-
-        encoder_0 {
-            bindings = <&kp C_VOL_DN &kp C_VOL_UP>;
-        };
-
-        encoder_1 {
-            bindings = <&kp PG_DN &kp PG_UP>;
-        };
-    };
 };
