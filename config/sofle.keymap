@@ -30,17 +30,14 @@
             then-layer = <ADJUST>;            
         };
     };
-   &led_strip {
-      chain-length = <LED>
-   };
     macros {
       wss: win-shift-s {
-         compatible = "zmk,behavior-tap-dance";
+         compatible = "zmk,behavior-macro";
          #binding-cells = <0>;
-         wait-ms = <MACRO_WAIT>
-         tap-ms = <MACRO_TAP>
+         wait-ms = <MACRO_WAIT>;
+         tap-ms = <MACRO_TAP>;
          bindings
-            = <&macro_wait_time MACRO_LAG>
+            = <&macro_wait_time MACRO_WAIT>
             , <&macro_press &kp LGUI>
             , <&macro_press &kp LSHIFT>
             , <&macro_tap &kp S>
@@ -49,7 +46,7 @@
             ;
       };
     };
-    behaviours {
+    behaviors {
       tdyo: tap_dance_yo {
          compatible = "zmk,behavior-tap-dance";
          #binding-cells = <0>;
@@ -122,7 +119,7 @@
       brt_enc: brightness_encoder {
          compatible = "zmk,behavior-tap-dance";
          #binding-cells = <0>;
-         bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>
+         bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
       };
     };
     keymap {
@@ -141,7 +138,7 @@
 &kp TAB   &kp Q  &kp W    &kp E    &kp R     &kp T                                  &kp Y      &kp U     &kp I     &kp O    &kp P    &tdh
 &kp LSHFT &kp A  &kp S    &kp D    &kp F     &kp G                                  &kp H      &kp J     &kp K     &kp L    &kp SEMI &kp SQT
 &kp LCTRL &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_PP   &rgb_ug RGB_EFF  &kp N      &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
-                 &tdwin   &kp LALT &tdtrak   &tdtl      &kp SPACE  &kp SPACE        &tdtu      &kp RET   &kp DEL   &dtfr
+                 &tdwin   &kp LALT &tdtrak   &tdtl      &kp SPACE  &kp SPACE        &tdtu      &kp RET   &kp DEL   &tdfr
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &brt_enc>;
@@ -221,4 +218,7 @@
         };
 
     };
+};
+&led_strip {
+   chain-length = <LED>;
 };
