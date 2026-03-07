@@ -111,14 +111,14 @@
       };
 
       tdtu: tap_dance_toggle_upper {
-         compatible = "zmk,behavior-sensor-rotate";
+         compatible = "zmk,behavior-tap-dance";
          #binding-cells = <0>;
          tapping-term-ms = <TAP>;
          bindings = <&none>, <&tog 2>;
       };
       brt_enc: brightness_encoder {
-         compatible = "zmk,behavior-tap-dance";
-         #binding-cells = <0>;
+         compatible = "zmk,behavior-sensor-rotate";
+         #binding-binding-cells = <0>;
          bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
       };
     };
