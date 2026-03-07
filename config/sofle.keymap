@@ -10,12 +10,16 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/ext_power.h>
 
+
 #define BASE 0
 #define LOWER 1
 #define RAISE 2
 #define ADJUST 3
+#define FUCKING_ROW 4
 #define TAP 200
-
+#define LED 36
+#define MACRO_TAP 10
+#define MACRO_WAIT 125
 / {
 
    // Activate ADJUST layer by pressing raise and lower
@@ -26,12 +30,99 @@
             then-layer = <ADJUST>;            
         };
     };
+   &led_strip {
+      chain-length = <LED>
+   };
+    macros {
+      wss: win-shift-s {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         wait-ms = <MACRO_WAIT>
+         tap-ms = <MACRO_TAP>
+         bindings
+            = <&macro_wait_time MACRO_LAG>
+            , <&macro_press &kp LGUI>
+            , <&macro_press &kp LSHIFT>
+            , <&macro_tap &kp S>
+            , <&macro_release &kp LGUI>
+            , <&macro_release &kp LSHIFT>
+            ;
+      };
+    };
     behaviours {
       tdyo: tap_dance_yo {
          compatible = "zmk,behavior-tap-dance";
          #binding-cells = <0>;
          tapping-term-ms = <TAP>;
          bindings = <&kp ESC>, <&kp GRAVE>;
+      };
+
+      td9: tap_dance_9 {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&kp N9>, <&kp MINUS>;
+      };
+
+      td0: tap_dance_0 {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&kp N0>, <&kp EQUAL>;
+      };
+
+      tdh: tap_dance_h {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&kp LBKT>, <&kp RBKT>;
+      };
+
+      tdae: tap_dance_ae {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&kp SQT>, <&kp BSLH>;
+      };
+
+      tdwin: tap_dance_win {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&kp LGUI>, <&wss>;
+      };
+
+      tdtrak: tap_dance_tracks {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&none>, <&kp C_NEXT>, <&kp C_PREV>;
+      };
+
+      tdfr: tap_dance_f_row {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&sl 4>, <&tog 4>;
+      };
+
+      tdtl: tap_dance_toggle_lower {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&none>, <&tog 1>;
+      };
+
+      tdtu: tap_dance_toggle_upper {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         tapping-term-ms = <TAP>;
+         bindings = <&none>, <&tog 2>;
+      };
+      brt_enc: brightness_encoder {
+         compatible = "zmk,behavior-tap-dance";
+         #binding-cells = <0>;
+         bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>
       };
     };
     keymap {
@@ -40,30 +131,29 @@
         default_layer {
             display-name = "default";
 // ------------------------------------------------------------------------------------------------------------
-// | ESCtdЁ|  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   | ENTER |
-// |  ESC  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | BKSPC |
-// |  TAB  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
-// | SHIFT |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-//               | GUI | ALT  | CTRL | LOWER|  SPACE |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
+// | ESCtdЁ|  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    | 9td- |  0td= | BKSPC  |
+// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |{[Хtd}]Ъ|
+// | SHIFT |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   | 'td\|  |
+// |  CTRL |  Z  |  X  |  C   |  V   |  B   |PLY-PAUS|  |RGB-CHG|  N   |  M    |  ,    |  .   |   /   | SHIFT  |
+//             |GUItdWSS| ALT |TRUCK | LOWER|  SPACE |  | SPACE | RAISE| ENTER | DEL   |F-row |
             bindings = <
-&tdyo     &kp N1 &kp N2   &kp N3   &kp N4    &kp N5                           &kp N6 &kp N7    &kp N8    &kp N9   &kp N0   &kp RET
-&kp ESC   &kp Q  &kp W    &kp E    &kp R     &kp T                            &kp Y  &kp U     &kp I     &kp O    &kp P    &kp BSPC
-&kp TAB   &kp A  &kp S    &kp D    &kp F     &kp G                            &kp H  &kp J     &kp K     &kp L    &kp SEMI &kp SQT
-&kp LSHFT &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_MUTE &none      &kp N  &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
-                 &kp LGUI &kp LALT &kp LCTRL &mo LOWER  &kp SPACE  &kp SPACE  &mo RAISE  &kp RCTRL &kp RALT  &kp RGUI
+&tdyo     &kp N1 &kp N2   &kp N3   &kp N4    &kp N5                                 &kp N6     &kp N7    &kp N8    &td9     &td0     &kp RET
+&kp TAB   &kp Q  &kp W    &kp E    &kp R     &kp T                                  &kp Y      &kp U     &kp I     &kp O    &kp P    &tdh
+&kp LSHFT &kp A  &kp S    &kp D    &kp F     &kp G                                  &kp H      &kp J     &kp K     &kp L    &kp SEMI &kp SQT
+&kp LCTRL &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_PP   &rgb_ug RGB_EFF  &kp N      &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
+                 &tdwin   &kp LALT &tdtrak   &tdtl      &kp SPACE  &kp SPACE        &tdtu      &kp RET   &kp DEL   &dtfr
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_DN PG_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &brt_enc>;
         };
 
         lower_layer {
             display-name = "lower";
-// TODO: Some binds are waiting for shifted keycode support.
 // ------------------------------------------------------------------------------------------------------------
-// |       |  F1 |  F2 |  F3  |  F4  |  F5  |                   |  F6  |  F7   |  F8   |  F9  |  F10  |  F11  |
-// |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |  F12  |
-// |       |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   |   |
-// |       |  =  |  -  |  +   |  {   |  }   |        |  |       |  [   |  ]    |  ;    |  :   |   \   |       |
+// |  F1   |  F2 |  F3 |  F4  |  F5  |   F6 |                   |  F7  |  F8   |   F9  |  F10 |  F11  |  F12  |
+// |       |     |     |      |      |      |                   |      |       |       |      |       |       |
+// |       |     |     |      |      |      |                   |      |       |       |      |       |       |
+// |       |     |     |      |      |      |        |  |       |      |       |       |      |       |       |
 //               |     |      |      |      |        |  |       |      |       |       |      |
             bindings = <
 &trans    &kp F1    &kp F2    &kp F3      &kp F4    &kp F5                    &kp F6    &kp F7   &kp F8    &kp F9    &kp F10   &kp F11
@@ -110,6 +200,24 @@
 &none             &none           &none           &none           &none           &none            &rgb_ug RGB_TOG &none  &none &none &none &none &none &none
                                   &none           &none           &none           &none            &none           &none  &none &none &none &none
             >;
+        };
+      fucking_layer {
+            display-name = "fucking row";
+// ------------------------------------------------------------------------------------------------------------
+// | F1 | F2 | F3 | F4 | F5 | F6 |               | F7  | F8 | F9 | F10 | F11 | F12 |
+// |    |    |    |    |    |    |               |     |    |    |     |     |     |
+// |    |    |    |    |    |    |               |     |    |    |     |     |     |
+// |    |    |    |    |    |    |    |     |    |     |    |    |     |     |     |
+//           |    |    |    |    |    |     |    |     |    |    |     |
+            bindings = <
+      &kp F1 &kp F2 &kp F3 &kp F4 &kp F5 &kp F6               &kp F7 &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
+      &trans &trans &trans &trans &trans &trans               &trans &trans &trans &trans  &trans  &trans
+      &trans &trans &trans &trans &trans &trans               &trans &trans &trans &trans  &trans  &trans 
+      &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans  &trans  &trans
+      &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
     };
