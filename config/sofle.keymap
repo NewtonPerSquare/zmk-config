@@ -118,7 +118,7 @@
       };
       brt_enc: brightness_encoder {
          compatible = "zmk,behavior-sensor-rotate";
-         #binding-binding-cells = <0>;
+         #sensor-binding-cells = <0>;
          bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
       };
     };
