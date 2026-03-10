@@ -284,7 +284,7 @@
 // |  CTRL |  Z  |  X  |  C   |  V   |  B   |PLY-PAUS|  |RGB-CHG|  N   |  M    |  ,    |  .   |   /   | SHIFT  |
 //             |GUItdWSS| ALT |TRUCK | LOWER|  SPACE |  | SPACE | RAISE| ENTER | DEL   |F-row |
             bindings = <
-&tdyo     &kp N1 &kp N2   &kp N3   &kp N4    &kp N5                                 &kp N6     &kp N7    &kp N8    &td9     &td0     &kp RET
+&tdyo     &kp N1 &kp N2   &kp N3   &kp N4    &kp N5                                 &kp N6     &kp N7    &kp N8    &td9     &td0     &kp BSPC
 &kp TAB   &kp Q  &kp W    &kp E    &kp R     &kp T                                  &kp Y      &kp U     &kp I     &kp O    &kp P    &tdh
 &kp LSHFT &kp A  &kp S    &kp D    &kp F     &kp G                                  &kp H      &kp J     &kp K     &kp L    &kp SEMI &tdae
 &kp LCTRL &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_PP   &rgb_ug RGB_EFF  &kp N      &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
@@ -307,7 +307,7 @@
 &none     &none     &none     &none       &none     &number2                       &mkp MB1       &mkp MOVE_UP   &mkp MB2        &none     &none     &none
 &none     &none     &none     &none       &number1  &mail1                         &mkp MOVE_LEFT &mkp MOVE_DOWN &mkp MOVE_RIGHT &none     &none     &none 
 &none     &none     &none     &none       &mail3    &mail2    &none      &mkp MB3  &none          &none          &none           &none     &none     &none 
-                    &none     &none       &tdtrak   &none     &kp SPACE  &kp SPACE &tdtu          &none          &none           &none 
+                    &none     &none       &tdtrak   &tog 0   &kp SPACE  &kp SPACE &tdtu          &none          &none           &none 
             >;
 
             sensor-bindings = <&scrl_lr_enc &scrl_ud_enc>;
@@ -322,11 +322,11 @@
 // | CTRL  |   Z  |  X   |    C  |    V  |      |PLY-PAUS||RGB-CHG|      |      |       |      |       |       |
 //                | WIN  | LALT  | TRUCK |low   |SPACE |  |SPACE  | up?  |      |       |      |
             bindings = <
-&kp F1     &kp F2       &kp F3       &kp F4       &kp F5       &kp F6                              &kp F7     &kp F8    &kp F9  &kp F10   &kp F11 &kp F12
+&kp F1     &kp F2       &kp F3       &kp F4       &kp F5       &kp F6                              &kp F7     &kp F8    &kp F9   &kp F10   &kp F11 &kp F12
 &kp TAB    &trans       &trans       &trans       &trans       &trans                              &trans    &kp DEL    &kp UP   &kp BSPC  &trans  &trans
 &kp LSHIFT &kp A        &trans       &trans       &trans       &trans                              &trans    &kp LEFT   &kp DOWN &kp RIGHT &trans  &trans
 &kp LCTRL  &kp Z        &kp X        &kp C        &kp V        &trans    &kp C_PP  &rgb_ug RGB_EFF &trans    &trans     &trans   &trans    &trans  &trans
-                        &tdwin       &kp LALT     &tdtrak      &tdtl     &kp SPACE &kp SPACE       &trans    &trans     &trans   &trans
+                        &tdwin       &kp LALT     &tdtrak      &tdtl     &kp SPACE &kp SPACE       &tog 2    &trans     &trans   &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &brt_enc>;
@@ -345,7 +345,7 @@
 &none             &rgb_ug RGB_HUD &rgb_ug RGB_HUI &rgb_ug RGB_SAD &rgb_ug RGB_SAI &rgb_ug RGB_EFF                         &none &none &none &none &none &none
 &none             &rgb_ug RGB_BRD &rgb_ug RGB_BRI &none           &none           &none                                   &none &none &none &none &none &none
 &none             &none           &none           &none           &none           &none            &rgb_ug RGB_TOG &none  &none &none &none &none &none &none
-                                  &none           &none           &none           &none            &none           &none  &none &none &none &none
+                                  &none           &none           &none           &tog 2           &none           &none  &tog 1 &none &none &none
             >;
         };
       fucking_layer {
@@ -361,7 +361,7 @@
                &trans &trans &trans &trans &trans &trans               &trans &trans &trans &trans  &trans  &trans
                &trans &trans &trans &trans &trans &trans               &trans &trans &trans &trans  &trans  &trans 
                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans  &trans  &trans
-                             &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                             &trans &trans &trans &tog 0 &trans &trans &tog 0 &trans &trans &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
