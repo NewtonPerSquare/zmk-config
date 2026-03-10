@@ -18,8 +18,8 @@
 #define FUCKING_ROW 4
 #define TAP 175
 #define LED 36
-#define MACRO_TAP 75
-#define MACRO_WAIT 50
+#define MACRO_TAP 5
+#define MACRO_WAIT 20
 / {
 
    // Activate ADJUST layer by pressing raise and lower
@@ -259,7 +259,7 @@
       brt_enc: brightness_encoder {
          compatible = "zmk,behavior-sensor-rotate";
          #sensor-binding-cells = <0>;
-         bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
+         bindings = <&rgb_ug RGB_BRD>, <&rgb_ug RGB_BRI>;
       };
       scrl_lr_enc: scroll_left_right_encoder {
          compatible = "zmk,behavior-sensor-rotate";
@@ -291,7 +291,7 @@
                  &tdwin   &kp LALT &tdtrak   &tdtl      &kp SPACE  &kp SPACE        &tdtu      &kp RET   &kp DEL   &tdfr
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &brt_enc>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &brt_enc>;
         };
 
         lower_layer {
@@ -304,10 +304,10 @@
 //               |     |      | trck | low? | SPACE  |  | SPACE |  up  |       |       |      |
             bindings = <
 &kp F1    &kp F2    &kp F3    &kp F4      &kp F5    &kp F6                         &kp F7         &kp F8         &kp F9          &kp F10   &kp F11   &kp F12      
-&none     &none     &none     &none       &none     &number2                       &mkp MB1       &mkp MOVE_UP   &mkp MB2        &none     &none     &none
-&none     &none     &none     &none       &number1  &mail1                         &mkp MOVE_LEFT &mkp MOVE_DOWN &mkp MOVE_RIGHT &none     &none     &none 
+&none     &none     &none     &none       &none     &number2                       &mkp MB1       &mmv MOVE_UP   &mkp MB2        &none     &none     &none
+&none     &none     &none     &none       &number1  &mail1                         &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none     &none     &none 
 &none     &none     &none     &none       &mail3    &mail2    &none      &mkp MB3  &none          &none          &none           &none     &none     &none 
-                    &none     &none       &tdtrak   &tog 0   &kp SPACE  &kp SPACE &tdtu          &none          &none           &none 
+                    &none     &none       &tdtrak   &tog 1   &kp SPACE   &kp SPACE &tdtu          &none          &none           &none 
             >;
 
             sensor-bindings = <&scrl_lr_enc &scrl_ud_enc>;
@@ -317,16 +317,16 @@
             display-name = "ArRoWs";
 // ------------------------------------------------------------------------------------------------------------
 // |  F1   |  F2  |  F3  |  F4   |  F5   |   F6 |                 |  F7  |  F8  |   F9  |  F10 |  F11  |  F12  |
-// |  TAB  |      |      |       |       |      |                 |      | DEL  |   ^   | BKSPC|       |       |
-// | SHIFT |   A  |      |       |       |      |                 |      |   <- |   v   |  ->  |       |       |
+// |  TAB  |      |      |       |       |      |                 | DEL  |   ^   | BKSPC|      |       |       |
+// | SHIFT |   A  |      |       |       |      |                 |   <- |   v   |  ->  |      |       |       |
 // | CTRL  |   Z  |  X   |    C  |    V  |      |PLY-PAUS||RGB-CHG|      |      |       |      |       |       |
 //                | WIN  | LALT  | TRUCK |low   |SPACE |  |SPACE  | up?  |      |       |      |
             bindings = <
 &kp F1     &kp F2       &kp F3       &kp F4       &kp F5       &kp F6                              &kp F7     &kp F8    &kp F9   &kp F10   &kp F11 &kp F12
-&kp TAB    &trans       &trans       &trans       &trans       &trans                              &trans    &kp DEL    &kp UP   &kp BSPC  &trans  &trans
-&kp LSHIFT &kp A        &trans       &trans       &trans       &trans                              &trans    &kp LEFT   &kp DOWN &kp RIGHT &trans  &trans
-&kp LCTRL  &kp Z        &kp X        &kp C        &kp V        &trans    &kp C_PP  &rgb_ug RGB_EFF &trans    &trans     &trans   &trans    &trans  &trans
-                        &tdwin       &kp LALT     &tdtrak      &tdtl     &kp SPACE &kp SPACE       &tog 2    &trans     &trans   &trans
+&kp TAB    &trans       &trans       &trans       &trans       &trans                              &kp DEL    &kp UP   &kp BSPC  &trans  &trans
+&kp LSHIFT &kp A        &trans       &trans       &trans       &trans                              &kp LEFT   &trans  &kp DOWN &kp RIGHT &trans  &trans
+&kp LCTRL  &kp Z        &kp X        &kp C        &kp V        &trans    &kp C_PP  &rgb_ug RGB_EFF &trans     &trans     &trans   &trans    &trans  &trans
+                        &tdwin       &kp LALT     &tdtrak      &tdtl     &kp SPACE &kp SPACE       &tog 2     &trans     &trans   &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &brt_enc>;
@@ -345,7 +345,7 @@
 &none             &rgb_ug RGB_HUD &rgb_ug RGB_HUI &rgb_ug RGB_SAD &rgb_ug RGB_SAI &rgb_ug RGB_EFF                         &none &none &none &none &none &none
 &none             &rgb_ug RGB_BRD &rgb_ug RGB_BRI &none           &none           &none                                   &none &none &none &none &none &none
 &none             &none           &none           &none           &none           &none            &rgb_ug RGB_TOG &none  &none &none &none &none &none &none
-                                  &none           &none           &none           &tog 2           &none           &none  &tog 1 &none &none &none
+                                  &none           &none           &none           &tog 1           &none           &none  &tog 2 &none &none &none
             >;
         };
       fucking_layer {
