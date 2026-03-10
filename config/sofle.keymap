@@ -16,10 +16,10 @@
 #define RAISE 2
 #define ADJUST 3
 #define FUCKING_ROW 4
-#define TAP 200
+#define TAP 75
 #define LED 36
 #define MACRO_TAP 10
-#define MACRO_WAIT 125
+#define MACRO_WAIT 50
 / {
 
    // Activate ADJUST layer by pressing raise and lower
