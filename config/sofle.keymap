@@ -18,7 +18,7 @@
 #define FUCKING_ROW 4
 #define TAP 75
 #define LED 36
-#define MACRO_TAP 10
+#define MACRO_TAP 150
 #define MACRO_WAIT 50
 / {
 
